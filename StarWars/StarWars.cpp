@@ -5,11 +5,6 @@
 
 using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
-}
-
 class ForceBeing
 {
 private:
@@ -35,9 +30,11 @@ protected:
 	
 
 public:
+	virtual ~ForceBeing() = default;
+
 	virtual int getPowerLevel()
 	{
-		
+		return power_level;
 	}
 
 	string getName()
@@ -54,5 +51,61 @@ public:
 	{
 		evil = false;
 	}
-	
 };
+
+class Jedi : ForceBeing
+{
+	public:
+		Jedi(string jediName, int level) : ForceBeing(level)
+		{
+			setName(jediName);
+			setGood();
+		}
+
+		int getPowerLevel()
+		{
+			return ForceBeing :: getPowerLevel() + 1;
+		}
+};
+
+class Sith : ForceBeing
+{
+public:
+	Sith(string sithName, int level) : ForceBeing(level)
+	{
+		setName(sithName);
+		setGood();
+	}
+
+	int getPowerLevel()
+	{
+		return ForceBeing::getPowerLevel() + 1;
+	}
+
+	string getName()
+	{
+		return "Sith Lord: " + ForceBeing::getName();
+	}
+};
+
+class StarWars
+{
+public :
+	static string getWinner(ForceBeing player1, ForceBeing player2)
+	{
+		return player1.getPowerLevel() > player2.getPowerLevel() ? player1.getName() : player2.getName();
+	}
+
+	static void printWinner(string winner)
+	{
+		cout << "The winner is: " << winner << endl;
+	}
+};
+
+int main()
+{
+	Sith darthVader = Sith("Darth Vader", 100);
+	Jedi lukeSkyWalker = Jedi("Luke Skywalker", 99);
+	StarWars :: printWinner(StarWars :: getWinner(darthVader, lukeSkyWalker));
+}
+
