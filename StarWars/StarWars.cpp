@@ -18,42 +18,40 @@ protected:
 		power_level = level;
 	}
 
-	void setPowerLevel(int level)
+	virtual void setPowerLevel(int level)
 	{
 		power_level = level;
 	}
 
-	void setName(string characterName)
+	virtual void setName(string characterName)
 	{
 		name = characterName;
 	}
 	
 
 public:
-	virtual ~ForceBeing() = default;
-
 	virtual int getPowerLevel()
 	{
 		return power_level;
 	}
 
-	string getName()
+	virtual string getName()
 	{
 		return name;
 	}
 
-	void setEvil()
+	virtual void setEvil()
 	{
 		evil = true;
 	}
 
-	void setGood()
+	virtual void setGood()
 	{
 		evil = false;
 	}
 };
 
-class Jedi : ForceBeing
+class Jedi : public ForceBeing
 {
 	public:
 		Jedi(string jediName, int level) : ForceBeing(level)
@@ -68,7 +66,7 @@ class Jedi : ForceBeing
 		}
 };
 
-class Sith : ForceBeing
+class Sith : public ForceBeing
 {
 public:
 	Sith(string sithName, int level) : ForceBeing(level)
@@ -91,7 +89,7 @@ public:
 class StarWars
 {
 public :
-	static string getWinner(ForceBeing player1, ForceBeing player2)
+	static string getWinner(ForceBeing &player1, ForceBeing &player2)
 	{
 		return player1.getPowerLevel() > player2.getPowerLevel() ? player1.getName() : player2.getName();
 	}
