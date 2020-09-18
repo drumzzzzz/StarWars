@@ -1,10 +1,9 @@
-// StarWars.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// StarWars.cpp: caculates and displays instaneated object of abstract base ForceBeing type with the greater power level 
 
 #include <iostream>
-
 using namespace std;
 
+// ForceBeing as abstract class
 class ForceBeing
 {
 private:
@@ -51,6 +50,7 @@ public:
 	}
 };
 
+// Jedi inherits ForceBeing
 class Jedi : public ForceBeing
 {
 	public:
@@ -66,6 +66,7 @@ class Jedi : public ForceBeing
 		}
 };
 
+// Sith inherits ForceBeing
 class Sith : public ForceBeing
 {
 public:
@@ -86,24 +87,22 @@ public:
 	}
 };
 
-class StarWars
+// Helper methods
+static string getWinner(ForceBeing &player1, ForceBeing &player2)
 {
-public :
-	static string getWinner(ForceBeing &player1, ForceBeing &player2)
-	{
-		return player1.getPowerLevel() > player2.getPowerLevel() ? player1.getName() : player2.getName();
-	}
+	return player1.getPowerLevel() > player2.getPowerLevel() ? player1.getName() : player2.getName();
+}
 
-	static void printWinner(string winner)
-	{
-		cout << "The winner is: " << winner << endl;
-	}
-};
+static void printWinner(string winner)
+{
+	cout << "The winner is: " << winner << endl;
+}
 
+// Insteate derived objects and display results
 int main()
 {
 	Sith darthVader = Sith("Darth Vader", 100);
 	Jedi lukeSkyWalker = Jedi("Luke Skywalker", 99);
-	StarWars :: printWinner(StarWars :: getWinner(darthVader, lukeSkyWalker));
+	printWinner(getWinner(darthVader, lukeSkyWalker));
 }
 
